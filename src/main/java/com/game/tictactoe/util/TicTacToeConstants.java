@@ -15,6 +15,8 @@ public class TicTacToeConstants {
 
     public static final char PLAYER_TWO_O = 'O';
 
+    public static final String NUMBER_NOT_IN_RANGE_EXCEPTION_MESSAGE = "Number must be between 1 and 3.";
+
     public static final char[][] START_GAME_PLAY_FIELD = {{' ', '1', '2', '3'},
             {'1', '-', '-', '-'},
             {'2', '-', '-', '-'},
