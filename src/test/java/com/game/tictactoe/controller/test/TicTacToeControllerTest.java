@@ -3,6 +3,7 @@ package com.game.tictactoe.controller.test;
 import com.game.tictactoe.controller.TicTacToeController;
 import com.game.tictactoe.exceptions.InputInUseException;
 import com.game.tictactoe.exceptions.NumberNotInRangeException;
+import com.game.tictactoe.model.GameStatus;
 import com.game.tictactoe.util.TicTacToeConstants;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,11 +27,14 @@ class TicTacToeControllerTest {
 
     MockMvc mockMvc;
     TicTacToeController ticTacToeController;
-
+    GameStatus gameStatus;
 
     @BeforeEach
     void setUp() {
+        this.gameStatus = new GameStatus();
         this.ticTacToeController = new TicTacToeController();
+
+        ticTacToeController.setGameStatus(gameStatus);
 
         mockMvc = MockMvcBuilders.standaloneSetup(ticTacToeController).build();
     }
@@ -78,6 +82,15 @@ class TicTacToeControllerTest {
                 .andExpect(view().name(TicTacToeConstants.EXPECTED_VIEW_NAME));
     }
 
+    /**
+     * Test attribute method on return key value and object
+     */
+    @Test
+    void testPlayGameValidInput() throws Exception {
+        gameStatus.setPlayField(TicTacToeConstants.EXPECTED_X);
+        mockMvc.perform(get("/playingGame?row=1&column=1"))
+                .andExpect(MockMvcResultMatchers.model().attribute("playField", gameStatus.getPlayField()));
+    }
     /**
      * Test numberNotInRange method that it throws the right exception with
      * different values And that it doesn't throw an exception when the number is within the play field length
