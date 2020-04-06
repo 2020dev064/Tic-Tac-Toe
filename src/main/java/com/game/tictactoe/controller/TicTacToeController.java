@@ -12,6 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * The class will be controlling the data between the service and the view
  *
@@ -27,6 +30,7 @@ public class TicTacToeController {
     @Autowired
     private TicTacToeService ticTacToeService;
 
+    private Logger logger = Logger.getAnonymousLogger();
     private String htmlTemplate = "tictactoe";
 
     /**
@@ -62,6 +66,7 @@ public class TicTacToeController {
             }
 
         } catch (NumberFormatException | NumberNotInRangeException | InputInUseException exception){
+            logger.log(Level.WARNING, exception.getMessage(), exception);
             model.addAttribute("exceptionMessage", exception.getMessage());
         } finally{
             model.addAttribute("playField", gameStatus.getPlayField());
