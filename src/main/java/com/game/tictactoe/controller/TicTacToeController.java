@@ -1,5 +1,6 @@
 package com.game.tictactoe.controller;
 
+import com.game.tictactoe.exceptions.NumberNotInRangeException;
 import com.game.tictactoe.util.TicTacToeConstants;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,5 +22,14 @@ public class TicTacToeController {
     public String printGameLayout(Model model){
         model.addAttribute("playField", TicTacToeConstants.START_GAME_PLAY_FIELD);
         return "tictactoe";
+    }
+
+    /**
+     * Method throws an exception when number is smaller then 1 or bigger than 3
+     */
+    public void numberNotInRange(int number) throws NumberNotInRangeException {
+        if (number < 1 || number > 3) {
+            throw new NumberNotInRangeException(TicTacToeConstants.NUMBER_NOT_IN_RANGE_EXCEPTION_MESSAGE);
+        }
     }
 }
