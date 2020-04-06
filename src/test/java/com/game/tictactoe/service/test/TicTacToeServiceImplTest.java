@@ -72,4 +72,14 @@ class TicTacToeServiceImplTest {
                 1));
     }
 
+    /**
+     * Test diagonalCheck for three X's diagonal from upper left to bottom right
+     */
+    @Test
+    void testPlayerOneDiagonalCheck() {
+        assertTrue(ticTacToeServiceImpl
+                .diagonalCheck(TicTacToeConstants.PLAYER_ONE_DIAGONAL_WIN, TicTacToeConstants.PLAYER_ONE_X));
+        assertFalse(ticTacToeServiceImpl
+                .diagonalCheck(TicTacToeConstants.EXPECTED_X, TicTacToeConstants.PLAYER_ONE_X));
+    }
 }
