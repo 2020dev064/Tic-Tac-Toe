@@ -30,6 +30,17 @@ public class TicTacToeConstants {
 
     public static final String DRAW_MESSAGE = "It's a draw...";
 
+    public static final String ENDGAME_MESSAGE = "Ready for playing tic tac toe";
+
+    public static final String HTML_TEMPLATE = "tictactoe";
+
+    public static final String EXCEPTION_MESSAGE = "exceptionMessage";
+
+    public static final String ENDGAME_MESSAGE_KEY_VALUE = "endgameMessage";
+
+    public static final String PLAY_FIELD_KEY_VALUE = "playField";
+
+    public static final String ENDGAME_HTML_RETURN = "endgame";
 
     public static final char[][] START_GAME_PLAY_FIELD = {{' ', '1', '2', '3'},
             {'1', '-', '-', '-'},
