@@ -1,5 +1,6 @@
 package com.game.tictactoe.controller;
 
+import com.game.tictactoe.exceptions.NumberNotInRangeException;
 import com.game.tictactoe.util.TicTacToeConstants;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -7,6 +8,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -54,5 +57,18 @@ class TicTacToeControllerTest {
     void testGameLayoutAvailable() throws Exception {
         mockMvc.perform(get(TicTacToeConstants.URI_START_TEMPLATE)).andExpect(
                 MockMvcResultMatchers.model().attribute("playField", TicTacToeConstants.START_GAME_PLAY_FIELD));
+    }
+
+    /**
+     * Test numberNotInRange method that it throws the right exception with
+     * different values And that it doesn't throw an exception when the number is within the play field length
+     */
+    @Test
+    void testNumberNotInRange() {
+        assertThrows(NumberNotInRangeException.class, () -> ticTacToeController.numberNotInRange(0));
+        assertThrows(NumberNotInRangeException.class, () -> ticTacToeController.numberNotInRange(4));
+        assertThrows(NumberNotInRangeException.class, () -> ticTacToeController.numberNotInRange(-1));
+
+        assertDoesNotThrow(() -> ticTacToeController.numberNotInRange(1));
     }
 }
