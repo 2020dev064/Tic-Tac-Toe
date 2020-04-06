@@ -40,4 +40,29 @@ public class TicTacToeServiceImpl implements TicTacToeService {
         gameStatus.setPlayField(this.playField);
         playerCounter++;
     }
+
+    /**
+     * If playerPoints equals three that means three in a row so return true
+     */
+    public boolean playerWon(int playerPoints) {
+        if (playerPoints == 3) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Method that checks three in a row horizontal
+     * The row that will be checked is the row where the last X or O is drawn
+     */
+    public boolean horizontalCheck(char[][] playField, char player, int row) {
+        int playerCounter = 0;
+        for (int i = 1; i < playField[row].length; i++) {
+            if (playField[row][i] == player) {
+                playerCounter += 1;
+            }
+        }
+        return playerWon(playerCounter);
+    }
 }
