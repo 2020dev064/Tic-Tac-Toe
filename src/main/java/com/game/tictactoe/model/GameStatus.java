@@ -15,6 +15,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class GameStatus {
     private char[][] playField = TicTacToeConstants.START_GAME_PLAY_FIELD;
-    private String message = "Ready for playing tic tac toe";
+    private String message = TicTacToeConstants.ENDGAME_MESSAGE;
     private boolean gameFinished = false;
 }
