@@ -1,7 +1,10 @@
 package com.game.tictactoe.service;
 
+import com.game.tictactoe.model.GameStatus;
 import com.game.tictactoe.util.TicTacToeConstants;
 import lombok.Getter;
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -10,8 +13,12 @@ import org.springframework.stereotype.Service;
  * @Author 2020-DEV-064
  */
 @Getter
+@Setter
 @Service
 public class TicTacToeServiceImpl implements TicTacToeService {
+
+    @Autowired
+    private GameStatus gameStatus;
 
     private char[][] playField;
     private int playerCounter;
@@ -30,6 +37,7 @@ public class TicTacToeServiceImpl implements TicTacToeService {
         } else {
             playField[row][column] = TicTacToeConstants.PLAYER_TWO_O;
         }
+        gameStatus.setPlayField(this.playField);
         playerCounter++;
     }
 }
