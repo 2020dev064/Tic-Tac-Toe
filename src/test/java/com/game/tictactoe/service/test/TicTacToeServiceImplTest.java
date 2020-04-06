@@ -82,4 +82,16 @@ class TicTacToeServiceImplTest {
         assertFalse(ticTacToeServiceImpl
                 .diagonalCheck(TicTacToeConstants.EXPECTED_X, TicTacToeConstants.PLAYER_ONE_X));
     }
+
+    /**
+     * Test reversedDiagonalCheck for three O's reversed diagonal from bottom left to upper right
+     */
+    @Test
+    void testReversedPlayerTwoDiagonalCheck() {
+        assertTrue(ticTacToeServiceImpl
+                .reversedDiagonalCheck(TicTacToeConstants.PLAYER_TWO_REVERSED_DIAGONAL_WIN,
+                        TicTacToeConstants.PLAYER_TWO_O));
+        assertFalse(ticTacToeServiceImpl
+                .reversedDiagonalCheck(TicTacToeConstants.EXPECTED_O, TicTacToeConstants.PLAYER_TWO_O));
+    }
 }
