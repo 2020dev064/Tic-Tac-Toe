@@ -12,5 +12,18 @@
             <td th:each="value: ${row}" th:text="${value}"/>
         </tr>
     </table>
+
+    <form action="/playingGame">
+        <fieldset>
+            <!--/*@thymesVar id="exceptionMessage" type="java"*/-->
+            <h5 th:text="${exceptionMessage}"></h5>
+            <h5>Choose a row</h5>
+            <input type="text" name="row"/>
+            <h5>Choose a column</h5>
+            <input type="text" name="column"/>
+            <input type="submit" value="Submit"/>
+        </fieldset>
+    </form>
+
 </body>
 </html>
