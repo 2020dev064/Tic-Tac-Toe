@@ -91,6 +91,36 @@ class TicTacToeControllerTest {
         mockMvc.perform(get("/playingGame?row=1&column=1"))
                 .andExpect(MockMvcResultMatchers.model().attribute("playField", gameStatus.getPlayField()));
     }
+
+    /**
+     * Test number format exception message in playGame method
+     */
+    @Test
+    void testPlayGameNumberFormatException() throws Exception {
+        mockMvc.perform(get("/playingGame?row=1&column=b")).andExpect(MockMvcResultMatchers.model()
+                .attribute("exceptionMessage", "b" + TicTacToeConstants.NUMBER_FORMAT_EXCEPTION_MESSAGE));
+    }
+
+    /**
+     * Test NumberOutOfBounds exception in playGame method
+     */
+    @Test
+    void testPlayGameNumberNotInRangeException() throws Exception {
+        mockMvc.perform(get("/playingGame?row=4&column=0")).andExpect(MockMvcResultMatchers.model()
+                .attribute("exceptionMessage", TicTacToeConstants.NUMBER_NOT_IN_RANGE_EXCEPTION_MESSAGE));
+    }
+
+    /**
+     * Test AlreadyInUse exception in playGame method
+     */
+    @Test
+    void testPlayGameInputInUseException() throws Exception {
+        gameStatus.setPlayField(TicTacToeConstants.EXPECTED_X);
+        mockMvc.perform(get("/playingGame?row=1&column=1")).andExpect(MockMvcResultMatchers.model()
+                .attribute("exceptionMessage", TicTacToeConstants.INPUT_IN_USE_EXCEPTION_MESSAGE));
+
+    }
+
     /**
      * Test numberNotInRange method that it throws the right exception with
      * different values And that it doesn't throw an exception when the number is within the play field length
