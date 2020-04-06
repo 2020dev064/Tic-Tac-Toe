@@ -44,7 +44,7 @@ class TicTacToeControllerTest {
     }
 
     /**
-     * Test if view name equals 'tictactoe/index'
+     * Test if view name equals 'tictactoe'
      */
     @Test
     void testPrintGameLayoutViewName() throws Exception {
@@ -59,6 +59,23 @@ class TicTacToeControllerTest {
     void testGameLayoutAvailable() throws Exception {
         mockMvc.perform(get(TicTacToeConstants.URI_START_TEMPLATE)).andExpect(
                 MockMvcResultMatchers.model().attribute("playField", TicTacToeConstants.START_GAME_PLAY_FIELD));
+    }
+
+    /**
+     * Test playGame method http status return equals 200
+     */
+    @Test
+    void testPlayGameHttpStatus() throws Exception {
+        mockMvc.perform(get(TicTacToeConstants.URI_PLAY_GAME_TEMPLATE)).andExpect(status().isOk());
+    }
+
+    /**
+     * Test if view name equals 'tictactoe'
+     */
+    @Test
+    void testPlayGameViewName() throws Exception {
+        mockMvc.perform(get(TicTacToeConstants.URI_PLAY_GAME_TEMPLATE))
+                .andExpect(view().name(TicTacToeConstants.EXPECTED_VIEW_NAME));
     }
 
     /**
