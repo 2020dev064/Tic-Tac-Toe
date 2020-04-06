@@ -1,5 +1,6 @@
 package com.game.tictactoe.controller;
 
+import com.game.tictactoe.exceptions.InputInUseException;
 import com.game.tictactoe.exceptions.NumberNotInRangeException;
 import com.game.tictactoe.util.TicTacToeConstants;
 import org.junit.jupiter.api.BeforeEach;
@@ -70,5 +71,20 @@ class TicTacToeControllerTest {
         assertThrows(NumberNotInRangeException.class, () -> ticTacToeController.numberNotInRange(-1));
 
         assertDoesNotThrow(() -> ticTacToeController.numberNotInRange(1));
+    }
+
+    /**
+     * Test inPutInUse method that it throws the right exception when the field is
+     * already occupied by X or O And that it doesn't throw an exception when the field is free to use
+     */
+    @Test
+    void testInputInUse() {
+        assertThrows(InputInUseException.class,
+                () -> ticTacToeController.inputInUSe(1, 1, TicTacToeConstants.EXPECTED_X));
+
+        assertThrows(InputInUseException.class,
+                () -> ticTacToeController.inputInUSe(1, 1, TicTacToeConstants.EXPECTED_O));
+
+        assertDoesNotThrow(() -> ticTacToeController.inputInUSe(1, 2, TicTacToeConstants.EXPECTED_X));
     }
 }
