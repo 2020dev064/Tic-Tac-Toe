@@ -31,7 +31,7 @@ public class TicTacToeController {
     private TicTacToeService ticTacToeService;
 
     private Logger logger = Logger.getAnonymousLogger();
-    private String htmlTemplate = "tictactoe";
+    private String htmlTemplate = TicTacToeConstants.HTML_TEMPLATE;
 
     /**
      * This method will print the game layout of the start page
@@ -39,7 +39,7 @@ public class TicTacToeController {
      */
     @RequestMapping(value = "/start")
     public String printGameLayout(Model model){
-        model.addAttribute("playField", TicTacToeConstants.START_GAME_PLAY_FIELD);
+        model.addAttribute(TicTacToeConstants.PLAY_FIELD_KEY_VALUE, TicTacToeConstants.START_GAME_PLAY_FIELD);
         return htmlTemplate;
     }
 
@@ -62,15 +62,15 @@ public class TicTacToeController {
 
             gameStatus = ticTacToeService.winner(validRowNumber, validColumnNumber);
             if(gameStatus.isGameFinished()){
-                htmlTemplate = "endgame";
+                htmlTemplate = TicTacToeConstants.ENDGAME_HTML_RETURN;
             }
 
         } catch (NumberFormatException | NumberNotInRangeException | InputInUseException exception){
             logger.log(Level.WARNING, exception.getMessage(), exception);
-            model.addAttribute("exceptionMessage", exception.getMessage());
+            model.addAttribute(TicTacToeConstants.EXCEPTION_MESSAGE, exception.getMessage());
         } finally{
-            model.addAttribute("playField", gameStatus.getPlayField());
-            model.addAttribute("endgameMessage", gameStatus.getMessage());
+            model.addAttribute(TicTacToeConstants.PLAY_FIELD_KEY_VALUE, gameStatus.getPlayField());
+            model.addAttribute(TicTacToeConstants.ENDGAME_MESSAGE_KEY_VALUE, gameStatus.getMessage());
             return htmlTemplate;
         }
     }
