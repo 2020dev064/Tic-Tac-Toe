@@ -65,4 +65,18 @@ public class TicTacToeServiceImpl implements TicTacToeService {
         }
         return playerWon(playerCounter);
     }
+
+    /**
+     * Method that checks three in a row vertical
+     * The column that will be checked is the column where the last X or O is drawn
+     */
+    public boolean verticalCheck(char[][] playField, char player, int column) {
+        int playerCounter = 0;
+        for (int i = 1; i < playField[column].length; i++) {
+            if (playField[i][column] == player) {
+                playerCounter += 1;
+            }
+        }
+        return playerWon(playerCounter);
+    }
 }
