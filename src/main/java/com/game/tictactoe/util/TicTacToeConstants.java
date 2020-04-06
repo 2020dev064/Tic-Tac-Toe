@@ -19,6 +19,10 @@ public class TicTacToeConstants {
 
     public static final String INPUT_IN_USE_EXCEPTION_MESSAGE = "This position is already in use.";
 
+    public static final String NUMBER_FORMAT_EXCEPTION_MESSAGE =
+            " is not a valid number, characters and decimal numbers aren't allowed.";
+
+
     public static final char[][] START_GAME_PLAY_FIELD = {{' ', '1', '2', '3'},
             {'1', '-', '-', '-'},
             {'2', '-', '-', '-'},
