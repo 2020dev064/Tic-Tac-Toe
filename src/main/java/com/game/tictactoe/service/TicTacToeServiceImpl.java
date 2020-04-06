@@ -113,23 +113,31 @@ public class TicTacToeServiceImpl implements TicTacToeService {
      * Method that changes the endgame message and checks if one of the previous methods return true
      * Let the method return a GameStatus object with all the needed information
      */
-    public GameStatus winner( int row, int column) {
+    @Override
+    public GameStatus winner(int row, int column) {
         playerTurn(row, column);
         if (horizontalCheck(playField, playerValue, row) || verticalCheck(playField, playerValue, column)
                 || diagonalCheck(playField, playerValue) || reversedDiagonalCheck(playField, playerValue)) {
-            switch (playerValue) {
-                case TicTacToeConstants.PLAYER_ONE_X:
-                    gameStatus.setMessage(TicTacToeConstants.PLAYER_ONE_WON_MESSAGE);
-                    break;
-                case TicTacToeConstants.PLAYER_TWO_O:
-                    gameStatus.setMessage(TicTacToeConstants.PLAYER_TWO_WON_MESSAGE);
-                    break;
-            }
-            gameStatus.setGameFinished(true);
+            assignWinnerStatus();
         } else if (getPlayerCounter() == 9) {
-            gameStatus.setMessage(TicTacToeConstants.DRAW_MESSAGE);
             gameStatus.setGameFinished(true);
+            gameStatus.setMessage(TicTacToeConstants.DRAW_MESSAGE);
         }
-        return this.gameStatus;
+        return gameStatus;
+    }
+
+    /**
+     * This method is used to assign the winner details to GameStatus class.
+     */
+    public void assignWinnerStatus() {
+        switch (playerValue) {
+            case TicTacToeConstants.PLAYER_ONE_X:
+                gameStatus.setMessage(TicTacToeConstants.PLAYER_ONE_WON_MESSAGE);
+                break;
+            case TicTacToeConstants.PLAYER_TWO_O:
+                gameStatus.setMessage(TicTacToeConstants.PLAYER_TWO_WON_MESSAGE);
+                break;
+        }
+        gameStatus.setGameFinished(true);
     }
 }
