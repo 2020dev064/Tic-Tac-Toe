@@ -92,4 +92,17 @@ public class TicTacToeServiceImpl implements TicTacToeService {
         }
         return playerWon(playerCounter);
     }
+
+    /**
+     * Method checks three of the same X or O from bottom left to upper right
+     */
+    public boolean reversedDiagonalCheck(char[][] playField, char player) {
+        int playerCounter = 0;
+        for (int i = 3, j = 1; i > 0; i--, j++) {
+            if (playField[j][i] == player) {
+                playerCounter += 1;
+            }
+        }
+        return playerWon(playerCounter);
+    }
 }
