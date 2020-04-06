@@ -24,6 +24,12 @@ public class TicTacToeConstants {
     public static final String NUMBER_FORMAT_EXCEPTION_MESSAGE =
             " is not a valid number, characters and decimal numbers aren't allowed.";
 
+    public static final String PLAYER_ONE_WON_MESSAGE = "Player one won!!!";
+
+    public static final String PLAYER_TWO_WON_MESSAGE = "Player two won!!!";
+
+    public static final String DRAW_MESSAGE = "It's a draw...";
+
 
     public static final char[][] START_GAME_PLAY_FIELD = {{' ', '1', '2', '3'},
             {'1', '-', '-', '-'},
