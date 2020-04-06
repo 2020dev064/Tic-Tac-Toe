@@ -17,8 +17,20 @@ public class TicTacToeConstants {
 
     public static final String NUMBER_NOT_IN_RANGE_EXCEPTION_MESSAGE = "Number must be between 1 and 3.";
 
+    public static final String INPUT_IN_USE_EXCEPTION_MESSAGE = "This position is already in use.";
+
     public static final char[][] START_GAME_PLAY_FIELD = {{' ', '1', '2', '3'},
             {'1', '-', '-', '-'},
+            {'2', '-', '-', '-'},
+            {'3', '-', '-', '-'}};
+
+    public static final char[][] EXPECTED_X = {{' ', '1', '2', '3'},
+            {'1', 'X', '-', '-'},
+            {'2', '-', '-', '-'},
+            {'3', '-', '-', '-'}};
+
+    public static final char[][] EXPECTED_O = {{' ', '1', '2', '3'},
+            {'1', 'O', '-', '-'},
             {'2', '-', '-', '-'},
             {'3', '-', '-', '-'}};
 }
