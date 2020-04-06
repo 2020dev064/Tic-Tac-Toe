@@ -1,7 +1,7 @@
 package com.game.tictactoe.service;
 
 /**
- * * @Author 2020-DEV-064
+ * @Author 2020-DEV-064
  */
 public interface TicTacToeService {
 

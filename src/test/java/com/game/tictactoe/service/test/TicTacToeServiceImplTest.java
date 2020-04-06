@@ -1,5 +1,6 @@
 package com.game.tictactoe.service;
 
+import com.game.tictactoe.model.GameStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,11 +13,14 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class TicTacToeServiceImplTest {
 
+    GameStatus gameStatus;
     TicTacToeServiceImpl ticTacToeServiceImpl;
 
     @BeforeEach
     void setUp() {
+        this.gameStatus = new GameStatus();
         this.ticTacToeServiceImpl = new TicTacToeServiceImpl();
+        ticTacToeServiceImpl.setGameStatus(gameStatus);
     }
 
     /**
