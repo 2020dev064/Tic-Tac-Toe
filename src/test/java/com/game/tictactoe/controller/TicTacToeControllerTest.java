@@ -4,6 +4,7 @@ import com.game.tictactoe.util.TicTacToeConstants;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -44,5 +45,14 @@ class TicTacToeControllerTest {
     void testPrintGameLayoutViewName() throws Exception {
         mockMvc.perform(get(TicTacToeConstants.URI_START_TEMPLATE))
                 .andExpect(view().name(TicTacToeConstants.EXPECTED_VIEW_NAME));
+    }
+
+    /**
+     * Test attribute method on return of the key value and object
+     */
+    @Test
+    void testGameLayoutAvailable() throws Exception {
+        mockMvc.perform(get(TicTacToeConstants.URI_START_TEMPLATE)).andExpect(
+                MockMvcResultMatchers.model().attribute("playField", TicTacToeConstants.START_GAME_PLAY_FIELD));
     }
 }
