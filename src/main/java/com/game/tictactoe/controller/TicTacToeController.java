@@ -3,12 +3,14 @@ package com.game.tictactoe.controller;
 import com.game.tictactoe.exceptions.InputInUseException;
 import com.game.tictactoe.exceptions.NumberNotInRangeException;
 import com.game.tictactoe.model.GameStatus;
+import com.game.tictactoe.service.TicTacToeService;
 import com.game.tictactoe.util.TicTacToeConstants;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * The class will be controlling the data between the service and the view
@@ -21,6 +23,9 @@ public class TicTacToeController {
 
     @Autowired
     private GameStatus gameStatus;
+
+    @Autowired
+    private TicTacToeService ticTacToeService;
 
     private String htmlTemplate = "tictactoe";
 
@@ -35,12 +40,30 @@ public class TicTacToeController {
     }
 
     /**
-     * This method refers too tictactoe.html file
+     * This method checks if the input is valid, then calls the playerTurn method that will draw an 'X' or 'O'
+     *  and update the play field of gameStatus object
      */
     @RequestMapping(value = "/playingGame")
-    public String playGame(Model model){
-        model.addAttribute("playField", gameStatus.getPlayField());
-        return htmlTemplate;
+    public String playGame(Model model,
+                           @RequestParam(value = "row", required = false) String row,
+                           @RequestParam(value = "column", required = false) String column){
+        try {
+            int validRowNumber = numberFormat(row);
+            int validColumnNumber = numberFormat(column);
+
+            numberNotInRange(validRowNumber);
+            numberNotInRange(validColumnNumber);
+
+            inputInUSe(validRowNumber, validColumnNumber, gameStatus.getPlayField());
+
+            ticTacToeService.playerTurn(validRowNumber, validColumnNumber);
+
+        } catch (NumberFormatException | NumberNotInRangeException | InputInUseException exception){
+            model.addAttribute("exceptionMessage", exception.getMessage());
+        } finally{
+            model.addAttribute("playField", gameStatus.getPlayField());
+            return htmlTemplate;
+        }
     }
 
     /**
