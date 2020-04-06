@@ -54,4 +54,9 @@ public class TicTacToeConstants {
             {'1', 'X', '-', '-'},
             {'2', '-', 'X', '-'},
             {'3', '-', '-', 'X'}};
+
+    public static final char[][] PLAYER_TWO_REVERSED_DIAGONAL_WIN = {{' ', '1', '2', '3'},
+            {'1', '-', '-', 'O'},
+            {'2', '-', 'O', '-'},
+            {'3', 'O', '-', '-'}};
 }
