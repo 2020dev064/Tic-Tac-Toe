@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class TicTacToeController {
 
+    private String htmlTemplate = "tictactoe";
+
     /**
      * This method will print the game layout of the start page
      * The key value playfield and TicTacToe constant is used in the index.html by thymeleaf
@@ -22,7 +24,15 @@ public class TicTacToeController {
     @RequestMapping(value = "/start")
     public String printGameLayout(Model model){
         model.addAttribute("playField", TicTacToeConstants.START_GAME_PLAY_FIELD);
-        return "tictactoe";
+        return htmlTemplate;
+    }
+
+    /**
+     * This method refers too tictactoe.html file
+     */
+    @RequestMapping(value = "/playingGame")
+    public String playGame(){
+        return htmlTemplate;
     }
 
     /**
