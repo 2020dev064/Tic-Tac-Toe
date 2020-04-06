@@ -77,7 +77,8 @@ class TicTacToeControllerTest {
     @Test
     void testGameLayoutAvailable() throws Exception {
         mockMvc.perform(get(TicTacToeConstants.URI_START_TEMPLATE)).andExpect(
-                MockMvcResultMatchers.model().attribute("playField", TicTacToeConstants.START_GAME_PLAY_FIELD));
+                MockMvcResultMatchers.model().attribute(TicTacToeConstants.PLAY_FIELD_KEY_VALUE,
+                        TicTacToeConstants.START_GAME_PLAY_FIELD));
     }
 
     /**
@@ -104,7 +105,8 @@ class TicTacToeControllerTest {
     void testPlayGameValidInput() throws Exception {
         gameStatus.setPlayField(TicTacToeConstants.EXPECTED_X);
         mockMvc.perform(get("/playingGame?row=1&column=1"))
-                .andExpect(MockMvcResultMatchers.model().attribute("playField", gameStatus.getPlayField()));
+                .andExpect(MockMvcResultMatchers.model().attribute(TicTacToeConstants.PLAY_FIELD_KEY_VALUE,
+                        gameStatus.getPlayField()));
     }
 
     /**
@@ -118,7 +120,8 @@ class TicTacToeControllerTest {
 
         mockMvc.perform(get("/playingGame?row=1&column=3"))
                 .andExpect(MockMvcResultMatchers.model()
-                        .attribute("endgameMessage", TicTacToeConstants.PLAYER_ONE_WON_MESSAGE));
+                        .attribute(TicTacToeConstants.ENDGAME_MESSAGE_KEY_VALUE,
+                                TicTacToeConstants.PLAYER_ONE_WON_MESSAGE));
 
     }
 
@@ -128,7 +131,8 @@ class TicTacToeControllerTest {
     @Test
     void testPlayGameNumberFormatException() throws Exception {
         mockMvc.perform(get("/playingGame?row=1&column=b")).andExpect(MockMvcResultMatchers.model()
-                .attribute("exceptionMessage", "b" + TicTacToeConstants.NUMBER_FORMAT_EXCEPTION_MESSAGE));
+                .attribute(TicTacToeConstants.EXCEPTION_MESSAGE, "b" + 
+                        TicTacToeConstants.NUMBER_FORMAT_EXCEPTION_MESSAGE));
     }
 
     /**
@@ -136,8 +140,9 @@ class TicTacToeControllerTest {
      */
     @Test
     void testPlayGameNumberNotInRangeException() throws Exception {
-        mockMvc.perform(get("/playingGame?row=4&column=0")).andExpect(MockMvcResultMatchers.model()
-                .attribute("exceptionMessage", TicTacToeConstants.NUMBER_NOT_IN_RANGE_EXCEPTION_MESSAGE));
+         mockMvc.perform(get("/playingGame?row=4&column=0")).andExpect(MockMvcResultMatchers.model()
+                .attribute(TicTacToeConstants.EXCEPTION_MESSAGE, 
+                        TicTacToeConstants.NUMBER_NOT_IN_RANGE_EXCEPTION_MESSAGE));
     }
 
     /**
@@ -147,7 +152,7 @@ class TicTacToeControllerTest {
     void testPlayGameInputInUseException() throws Exception {
         gameStatus.setPlayField(TicTacToeConstants.EXPECTED_X);
         mockMvc.perform(get("/playingGame?row=1&column=1")).andExpect(MockMvcResultMatchers.model()
-                .attribute("exceptionMessage", TicTacToeConstants.INPUT_IN_USE_EXCEPTION_MESSAGE));
+                .attribute(TicTacToeConstants.EXCEPTION_MESSAGE, TicTacToeConstants.INPUT_IN_USE_EXCEPTION_MESSAGE));
 
     }
 
