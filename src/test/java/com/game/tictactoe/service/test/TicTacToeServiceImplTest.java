@@ -94,4 +94,67 @@ class TicTacToeServiceImplTest {
         assertFalse(ticTacToeServiceImpl
                 .reversedDiagonalCheck(TicTacToeConstants.EXPECTED_O, TicTacToeConstants.PLAYER_TWO_O));
     }
+
+    /**
+     * Tests if winner method returns a gameStatus object
+     * Tests when there is a winner isGameFinished equals true when player one won
+     */
+    @Test
+    void testPlayerOneWinner() {
+        assertEquals(gameStatus,
+                ticTacToeServiceImpl.winner(1, 1));
+
+        assertFalse(gameStatus.isGameFinished());
+
+        ticTacToeServiceImpl.winner(2, 1);
+        ticTacToeServiceImpl.winner(1, 2);
+        ticTacToeServiceImpl.winner(2, 2);
+        ticTacToeServiceImpl.winner(1, 3);
+
+        assertTrue(gameStatus.isGameFinished());
+    }
+
+    /**
+     * Tests if winner method returns a gameStatus object
+     * Tests when there is a winner isGameFinished equals true when player two won
+     */
+    @Test
+    void testPlayerTwoWinner() {
+        assertEquals(gameStatus,
+                ticTacToeServiceImpl.winner(1, 1));
+
+        assertFalse(gameStatus.isGameFinished());
+
+        ticTacToeServiceImpl.winner(2, 1);
+        ticTacToeServiceImpl.winner(1, 2);
+        ticTacToeServiceImpl.winner(2, 2);
+        ticTacToeServiceImpl.winner(3, 3);
+        ticTacToeServiceImpl.winner(2, 3);
+
+        assertTrue(gameStatus.isGameFinished());
+    }
+
+    /**
+     * Tests if winner method returns a gameStatus object
+     * Tests when there is a winner isGameFinished equals true when there is a draw
+     */
+    @Test
+    void testDraw() {
+        assertEquals(gameStatus,
+                ticTacToeServiceImpl.winner(1, 1));
+
+        assertFalse(gameStatus.isGameFinished());
+
+        ticTacToeServiceImpl.winner(2, 1);
+        ticTacToeServiceImpl.winner(1, 2);
+        ticTacToeServiceImpl.winner(2, 2);
+        ticTacToeServiceImpl.winner(1, 3);
+        ticTacToeServiceImpl.winner(3, 3);
+        ticTacToeServiceImpl.winner(2, 3);
+        ticTacToeServiceImpl.winner(1, 3);
+        ticTacToeServiceImpl.winner(3, 2);
+        ticTacToeServiceImpl.winner(3, 1);
+
+        assertTrue(gameStatus.isGameFinished());
+    }
 }
