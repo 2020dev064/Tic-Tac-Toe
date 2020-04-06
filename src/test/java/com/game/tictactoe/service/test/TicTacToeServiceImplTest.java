@@ -1,6 +1,7 @@
-package com.game.tictactoe.service;
+package com.game.tictactoe.service.test;
 
 import com.game.tictactoe.model.GameStatus;
+import com.game.tictactoe.service.TicTacToeServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
