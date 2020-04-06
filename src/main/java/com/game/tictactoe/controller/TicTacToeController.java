@@ -56,12 +56,16 @@ public class TicTacToeController {
 
             inputInUSe(validRowNumber, validColumnNumber, gameStatus.getPlayField());
 
-            ticTacToeService.playerTurn(validRowNumber, validColumnNumber);
+            gameStatus = ticTacToeService.winner(validRowNumber, validColumnNumber);
+            if(gameStatus.isGameFinished()){
+                htmlTemplate = "endgame";
+            }
 
         } catch (NumberFormatException | NumberNotInRangeException | InputInUseException exception){
             model.addAttribute("exceptionMessage", exception.getMessage());
         } finally{
             model.addAttribute("playField", gameStatus.getPlayField());
+            model.addAttribute("endgameMessage", gameStatus.getMessage());
             return htmlTemplate;
         }
     }
