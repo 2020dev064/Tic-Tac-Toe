@@ -22,6 +22,7 @@ public class TicTacToeServiceImpl implements TicTacToeService {
 
     private char[][] playField;
     private int playerCounter;
+    private char playerValue;
 
     public TicTacToeServiceImpl() {
         this.playField  = TicTacToeConstants.START_GAME_PLAY_FIELD;
@@ -34,8 +35,10 @@ public class TicTacToeServiceImpl implements TicTacToeService {
     public void playerTurn(int row, int column) {
         if (playerCounter % 2 == 0) {
             playField[row][column] = TicTacToeConstants.PLAYER_ONE_X;
+            playerValue = TicTacToeConstants.PLAYER_ONE_X;
         } else {
             playField[row][column] = TicTacToeConstants.PLAYER_TWO_O;
+            playerValue = TicTacToeConstants.PLAYER_TWO_O;
         }
         gameStatus.setPlayField(this.playField);
         playerCounter++;
@@ -104,5 +107,29 @@ public class TicTacToeServiceImpl implements TicTacToeService {
             }
         }
         return playerWon(playerCounter);
+    }
+
+    /**
+     * Method that changes the endgame message and checks if one of the previous methods return true
+     * Let the method return a GameStatus object with all the needed information
+     */
+    public GameStatus winner( int row, int column) {
+        playerTurn(row, column);
+        if (horizontalCheck(playField, playerValue, row) || verticalCheck(playField, playerValue, column)
+                || diagonalCheck(playField, playerValue) || reversedDiagonalCheck(playField, playerValue)) {
+            switch (playerValue) {
+                case TicTacToeConstants.PLAYER_ONE_X:
+                    gameStatus.setMessage(TicTacToeConstants.PLAYER_ONE_WON_MESSAGE);
+                    break;
+                case TicTacToeConstants.PLAYER_TWO_O:
+                    gameStatus.setMessage(TicTacToeConstants.PLAYER_TWO_WON_MESSAGE);
+                    break;
+            }
+            gameStatus.setGameFinished(true);
+        } else if (getPlayerCounter() == 9) {
+            gameStatus.setMessage(TicTacToeConstants.DRAW_MESSAGE);
+            gameStatus.setGameFinished(true);
+        }
+        return this.gameStatus;
     }
 }
