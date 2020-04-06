@@ -60,4 +60,16 @@ class TicTacToeServiceImplTest {
                 .horizontalCheck(TicTacToeConstants.EXPECTED_X, TicTacToeConstants.PLAYER_ONE_X,
                         1));
     }
+
+    /**
+     * Test verticalCheck for three O's in a column
+     */
+    @Test
+    void testVerticalCheck() {
+        assertTrue(ticTacToeServiceImpl.verticalCheck(TicTacToeConstants.PLAYER_TWO_VERTICAL_WIN,
+                TicTacToeConstants.PLAYER_TWO_O, 1));
+        assertFalse(ticTacToeServiceImpl.verticalCheck(TicTacToeConstants.EXPECTED_O, TicTacToeConstants.PLAYER_TWO_O,
+                1));
+    }
+
 }
