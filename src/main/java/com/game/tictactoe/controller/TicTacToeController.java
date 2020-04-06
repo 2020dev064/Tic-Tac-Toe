@@ -43,4 +43,16 @@ public class TicTacToeController {
             throw new InputInUseException(TicTacToeConstants.INPUT_IN_USE_EXCEPTION_MESSAGE);
         }
     }
+
+    /**
+     * Method throws a NumberFormatException if given string is not a Integer value
+     */
+    public int numberFormat (String toParse) throws NumberFormatException{
+        try{
+            return Integer.parseInt(toParse);
+        } catch (NumberFormatException nfe){
+            throw new NumberFormatException(toParse +
+                    TicTacToeConstants.NUMBER_FORMAT_EXCEPTION_MESSAGE);
+        }
+    }
 }
