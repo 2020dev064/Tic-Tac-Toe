@@ -4,15 +4,20 @@ import com.game.tictactoe.controller.TicTacToeController;
 import com.game.tictactoe.exceptions.InputInUseException;
 import com.game.tictactoe.exceptions.NumberNotInRangeException;
 import com.game.tictactoe.model.GameStatus;
+import com.game.tictactoe.service.TicTacToeService;
+import com.game.tictactoe.service.TicTacToeServiceImpl;
 import com.game.tictactoe.util.TicTacToeConstants;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -27,14 +32,24 @@ class TicTacToeControllerTest {
 
     MockMvc mockMvc;
     TicTacToeController ticTacToeController;
+
+    @Mock
+    TicTacToeService ticTacToeService;
     GameStatus gameStatus;
 
     @BeforeEach
     void setUp() {
         this.gameStatus = new GameStatus();
+
+        TicTacToeServiceImpl ticTacToeServiceImpl = new TicTacToeServiceImpl();
+        ticTacToeServiceImpl.setGameStatus(gameStatus);
+
+        ticTacToeService = mock(TicTacToeService.class);
+
         this.ticTacToeController = new TicTacToeController();
 
         ticTacToeController.setGameStatus(gameStatus);
+        ticTacToeController.setTicTacToeService(ticTacToeService);
 
         mockMvc = MockMvcBuilders.standaloneSetup(ticTacToeController).build();
     }
@@ -90,6 +105,21 @@ class TicTacToeControllerTest {
         gameStatus.setPlayField(TicTacToeConstants.EXPECTED_X);
         mockMvc.perform(get("/playingGame?row=1&column=1"))
                 .andExpect(MockMvcResultMatchers.model().attribute("playField", gameStatus.getPlayField()));
+    }
+
+    /**
+     * Test winner key value and returned message
+     */
+    @Test
+    void testPlayGameEndGame() throws Exception {
+        gameStatus.setGameFinished(true);
+        gameStatus.setMessage(TicTacToeConstants.PLAYER_ONE_WON_MESSAGE);
+        when(ticTacToeService.winner(1, 3)).thenReturn(gameStatus);
+
+        mockMvc.perform(get("/playingGame?row=1&column=3"))
+                .andExpect(MockMvcResultMatchers.model()
+                        .attribute("endgameMessage", TicTacToeConstants.PLAYER_ONE_WON_MESSAGE));
+
     }
 
     /**
