@@ -1,5 +1,6 @@
-package com.game.tictactoe.controller;
+package com.game.tictactoe.controller.test;
 
+import com.game.tictactoe.controller.TicTacToeController;
 import com.game.tictactoe.exceptions.InputInUseException;
 import com.game.tictactoe.exceptions.NumberNotInRangeException;
 import com.game.tictactoe.util.TicTacToeConstants;
@@ -86,5 +87,17 @@ class TicTacToeControllerTest {
                 () -> ticTacToeController.inputInUSe(1, 1, TicTacToeConstants.EXPECTED_O));
 
         assertDoesNotThrow(() -> ticTacToeController.inputInUSe(1, 2, TicTacToeConstants.EXPECTED_X));
+    }
+
+    /**
+     * Test numberFormat method that it throws NumberFormatException when given
+     * String is not a Integer value And the method doesn't throw an exception when given String is a Integer value
+     */
+    @Test
+    void testNumberFormat() {
+        assertThrows(NumberFormatException.class, () -> ticTacToeController.numberFormat("a"));
+        assertThrows(NumberFormatException.class, () -> ticTacToeController.numberFormat("2.0"));
+
+        assertDoesNotThrow(() -> ticTacToeController.numberFormat("1"));
     }
 }
