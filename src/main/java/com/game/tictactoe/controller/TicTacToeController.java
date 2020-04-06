@@ -2,7 +2,10 @@ package com.game.tictactoe.controller;
 
 import com.game.tictactoe.exceptions.InputInUseException;
 import com.game.tictactoe.exceptions.NumberNotInRangeException;
+import com.game.tictactoe.model.GameStatus;
 import com.game.tictactoe.util.TicTacToeConstants;
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,8 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  * @Author 2020-DEV-064
  */
+@Setter
 @Controller
 public class TicTacToeController {
+
+    @Autowired
+    private GameStatus gameStatus;
 
     private String htmlTemplate = "tictactoe";
 
@@ -31,7 +38,8 @@ public class TicTacToeController {
      * This method refers too tictactoe.html file
      */
     @RequestMapping(value = "/playingGame")
-    public String playGame(){
+    public String playGame(Model model){
+        model.addAttribute("playField", gameStatus.getPlayField());
         return htmlTemplate;
     }
 
